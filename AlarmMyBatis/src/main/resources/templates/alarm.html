@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alarm Manager</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+	crossorigin="anonymous"></script>
+</head>
+<style>
+.input-recent-Alarms {
+	width: 50px;
+}
+
+.control {
+	margin: 0 auto;
+	width: 95%;
+	display: flex;
+	margin-bottom: 19px;
+}
+
+.form-select {
+	width: 50%;
+	display: inline;
+}
+
+.right {
+	margin: 10px 0px 10px 30px;
+	width: 45%;
+}
+
+.left {
+	margin: 10px 0px 10px 30px;
+	width: 55%;
+}
+
+.header {
+	padding: 10px 0px 10px 70px;
+}
+
+.btn-control {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.btn {
+	margin-left: 10px;
+}
+
+.main {
+	background-color: #e3edf9;
+}
+
+.body-control {
+	background-color: white;
+}
+
+.my-form-lt {
+	position: relative;
+}
+
+.my-form-lt::before {
+	content: attr(title-value);
+	position: absolute;
+	top: 0;
+	transform: translateY(-50%);
+	left: 10px;
+	padding: 0 10px;
+	background-color: white;
+	color: black;
+}
+</style>
+
+<body>
+	<div class="main container-fluid ">
+		<h2>Alarm Management</h2>
+		<div class="body-control">
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert">
+				<strong>[[${message}]]</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form th:object="${alarm}" method="post"
+				th:action="@{${id != null ? '/edit' : '/save'}}">
+				<input type="hidden" th:field="*{id}">
+				<div class="header">
+					<h5>
+						Recent Alarms in include* <input class="input-recent-Alarms"
+							type="text" th:field="*{rencentAlarmsInclude}"> day(s)
+					</h5>
+				</div>
+				<div class="control border border-3 my-form-lt"
+					title-value="Evacuation">
+					<div class="right">
+						<p>
+							Intital Notification <select class="form-select form-select-sm"
+								aria-label=".form-select-sm example"
+								th:field="*{intitalNotificationEvacuation}">
+								<option value="" selected>Open this select menu</option>
+								<option value="Core Evac Notification 1">Core Evac
+									Notification 1</option>
+								<option value="Core Evac Notification 2">Core Evac
+									Notification 2</option>
+								<option value="Core Evac Notification 3">Core Evac
+									Notification 3</option>
+							</select>
+						</p>
+						<p>
+							Ending Notification <select class="form-select form-select-sm"
+								aria-label=".form-select-sm example"
+								th:field="*{endingNotificationEvacuation}">
+								<option value="" selected>Open this select menu</option>
+								<option value="Core Evac Notification 1">Core Evac
+									Notification 1</option>
+								<option value="Core Evac Notification 2">Core Evac
+									Notification 2</option>
+								<option value="Core Evac Notification 3">Core Evac
+									Notification 3</option>
+							</select>
+						</p>
+					</div>
+					<div class="left">
+						<p>
+							Default Evacuation Length* <input type="text"
+								th:field="*{defaultEvacuationLength}">
+						</p>
+					</div>
+				</div>
+				<div class="control border border-3 my-form-lt"
+					title-value="Man Down Alarm">
+					<div class="right">
+						<p>
+							Man Down Notification <select class="form-select form-select-sm"
+								aria-label=".form-select-sm example"
+								th:field="*{manDownNotification}">
+								<option value="" selected>Open this select menu</option>
+								<option value="Core Man Down Notification 1">Core Man
+									Down Notification 1</option>
+								<option value="Core Man Down Notification 2">Core Man
+									Down Notification 2</option>
+								<option value="Core Man Down Notification 3">Core Man
+									Down Notification 3</option>
+							</select>
+						</p>
+						<p>
+							On-screen notification disappears after* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{dissappearsAfterMandown}">minute(s)
+						</p>
+						<p>
+							Enable Man Down No Movement Trigger* <input type="checkbox"
+								th:field="*{manDownMovementTrigger}">
+						</p>
+						<p>
+							Trigger if no movement for* <input class="input-recent-Alarms"
+								type="number" th:field="*{triggerMovementManDown}">second(s)
+						</p>
+					</div>
+					<div class="left">
+						<p>Man down accelerometer vector settings:</p>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="exampleRadios"
+								id="exampleRadios1" value="check" checked> <label
+								class="form-check-label" for="exampleRadios1"> Trigger
+								if accelerometer vector sum of axes exceeds* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{accelerometerVectorManDown}">g
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="exampleRadios"
+								id="exampleRadios2" value="check"> <label
+								class="form-check-label" for="exampleRadios2"> X-axis
+								exceeds* <input class="input-recent-Alarms" type="number"
+								th:field="*{xAxisExceeds}">g/Y-axis exceeds* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{yAxisExceeds}">g/Z-axis exceeds* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{zAxisExceeds}">g
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="control border border-3 my-form-lt"
+					title-value="Panic Alarm">
+					<div class="right">
+						<p>
+							Panic Notification <select class="form-select form-select-sm"
+								aria-label=".form-select-sm example"
+								th:field="*{panicNotification}">
+								<option value="" selected>Open this select menu</option>
+								<option value="Core Panic Alarm Notification 1">Core
+									Panic Alarm Notification 1</option>
+								<option value="Core Panic Alarm Notification 2">Core
+									Panic Alarm Notification 2</option>
+								<option value="Core Panic Alarm Notification 3">Core
+									Panic Alarm Notification 3</option>
+							</select>
+						</p>
+					</div>
+					<div class="left">
+						<p>
+							On-screen notification disappears after* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{dissappearsAfterPanic}"> minute(s)
+						</p>
+					</div>
+				</div>
+				<div class="control border border-3 my-form-lt"
+					title-value="Zone Breach Alarm">
+					<div class="right">
+						<p>
+							Daily Notification <select class="form-select form-select-sm"
+								aria-label=".form-select-sm example"
+								th:field="*{dalilyNotification}">
+								<option value="" selected>Open this select menu</option>
+								<option value="Core Zone Breach Notification 1">Core
+									Zone Breach Notification 1</option>
+								<option value="Core Zone Breach Notification 2">Core
+									Zone Breach Notification 2</option>
+								<option value="Core Zone Breach Notification 3">Core
+									Zone Breach Notification 3</option>
+							</select>
+						</p>
+						<p>
+							Allow Alarm Response Panel to be closed while alarms are
+							displayed <input type="checkbox" th:field="*{alarmResponsePanel}">
+						</p>
+						<p>
+							Zone Breach Time Threshold* <input class="input-recent-Alarms"
+								type="number" th:field="*{zoneBreachTime}">s
+						</p>
+
+					</div>
+					<div class="left">
+						<p>
+							On-screen notification dissappears after* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{dissappearsAfterZoneBreach}">minute(s)
+						</p>
+						<p>
+							Remove from Alarm Response after* <input
+								class="input-recent-Alarms" type="number"
+								th:field="*{removeFromAlarm}">minute(s)
+						</p>
+					</div>
+				</div>
+				<div class="btn-control m-1">
+					<div th:if="${id == null}">
+						<input type="submit" value="Save" class="btn btn-primary">
+					</div>
+					<div th:unless="${id == null}">
+						<input type="submit" value="Update" class="btn btn-primary">
+					</div>
+
+					<input type="reset" value="Cancel" class="btn btn-danger">
+					<button type="button" class="btn btn-success" data-toggle="modal"
+						data-target="#myModal">List</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+						data-target="#exampleModalCenter">History</button>
+				</div>
+			</form>
+		</div>
+
+		<div th:replace="history :: history"></div>
+		<div th:replace="history :: history1"></div>
+	</div>
+</body>
+</html>

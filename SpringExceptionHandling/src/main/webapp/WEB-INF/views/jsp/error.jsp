@@ -1,0 +1,9 @@
+<html>
+<head>
+<title>Error</title>
+</head>
+<body>
+	<h2>error.jsp</h2>
+	${error}
+</body>
+</html>

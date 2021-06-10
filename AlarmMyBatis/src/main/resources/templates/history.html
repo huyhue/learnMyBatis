@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+<body>
+	<div class="modal" id="myModal" th:fragment="history">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">List Alarm</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<button class="nav-link active" id="nav-home-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+								role="tab" aria-controls="nav-home" aria-selected="true">Evacuation</button>
+							<button class="nav-link" id="nav-profile-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+								role="tab" aria-controls="nav-profile" aria-selected="false">Man
+								Down Alarm</button>
+							<button class="nav-link" id="nav-contact-tab"
+								data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
+								role="tab" aria-controls="nav-contact" aria-selected="false">Panic
+								Alarm</button>
+							<button class="nav-link" id="nav-4-tab" data-bs-toggle="tab"
+								data-bs-target="#nav-4" type="button" role="tab"
+								aria-controls="nav-4" aria-selected="false">Zone Breach
+								Alarm</button>
+						</div>
+					</nav>
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="nav-home"
+							role="tabpanel" aria-labelledby="nav-home-tab">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Intital Notification</th>
+										<th>Ending Notification</th>
+										<th>Default Evacuation Length</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="alarm : ${list}">
+										<td><a th:href="@{'/edit/' + ${alarm.id}}">
+												[[${alarm.intitalNotificationEvacuation}]]</a></td>
+										<td th:text="${alarm.endingNotificationEvacuation}"></td>
+										<td th:text="${alarm.defaultEvacuationLength}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+							aria-labelledby="nav-profile-tab">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Man Down Notification</th>
+										<th>Notification disappears after</th>
+										<th>Enable No Movement Trigger</th>
+										<th>Trigger if no movement</th>
+										<th>Accelerometer vector sum</th>
+										<th>X Y Z-axis</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="alarm : ${list}">
+										<td th:text="${alarm.manDownNotification}"></td>
+										<td th:text="${alarm.dissappearsAfterMandown}"></td>
+										<td th:text="${alarm.manDownMovementTrigger}"></td>
+										<td th:text="${alarm.triggerMovementManDown}"></td>
+										<td th:text="${alarm.accelerometerVectorManDown}"></td>
+										<td th:text="${alarm.xAxisExceeds}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="tab-pane fade" id="nav-contact" role="tabpanel"
+							aria-labelledby="nav-contact-tab">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Panic Notification</th>
+										<th>Dissappears After Panic</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="alarm : ${list}">
+										<td th:text="${alarm.panicNotification}"></td>
+										<td th:text="${alarm.dissappearsAfterPanic}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="tab-pane fade" id="nav-4" role="tabpanel"
+							aria-labelledby="nav-4-tab">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Dalily Notification</th>
+										<th>Alarm Response Panel</th>
+										<th>Zone Breach Time</th>
+										<th>Dissappears After Zone Breach</th>
+										<th>Remove From Alarm</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="alarm : ${list}">
+										<td th:text="${alarm.dalilyNotification}"></td>
+										<td th:text="${alarm.alarmResponsePanel}"></td>
+										<td th:text="${alarm.zoneBreachTime}"></td>
+										<td th:text="${alarm.dissappearsAfterZoneBreach}"></td>
+										<td th:text="${alarm.removeFromAlarm}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" th:fragment="history1"
+		tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-xl"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">History
+						Change</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Actioned Content</th>
+								<th>Actioned Date</th>
+								<th>ID Alarm</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="history : ${listHistory}">
+								<td th:text="${history.action}"></td>
+								<td th:text="${history.saveDay}"></td>
+								<td th:text="${history.alarmId}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
