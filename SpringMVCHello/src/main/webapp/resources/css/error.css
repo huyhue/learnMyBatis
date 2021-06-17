@@ -1,0 +1,27 @@
+html, body{height:100%}
+body{font-family:"IBM Plex Sans KR","맑은 고딕","돋움","Apple SD Gothic Neo","애플 SD 산돌고딕 Neo",Dotum,Helvetica,Tahoma,Dotum,sans-serif;line-height:1.5em;color:#333;letter-spacing:-1px;-webkit-text-size-adjust:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0;margin:0;}
+.error{background:  linear-gradient(to bottom, #c3dbea 0%, #9dd9f8 100%);}
+.error__contents{position: relative;top: 50%;padding-top: 1px;transform: translateY(-50%);}
+.error__title{display:block;position:relative;width:473px;height:182px;margin:0 auto;font-size:0;line-height:0;}
+.error__title:before{content: "";position:absolute;left:0;top:0;width:473px;height:182px;background-image:url(../images/error.png);background-position:0 -192px;}
+.error--403 .error__title:before{background-image:url(../images/error.png);background-position:0 0}
+.error--404 .error__title:before{background-image:url(../images/error.png);background-position:0 -192px;}
+.error--500 .error__title, .error--503 .error__title{width:344px;height:167px}
+.error--500 .error__title:before, .error--503 .error__title:before{width:345px;height:167px}
+.error--500 .error__title:before{background-image:url(../images/error.png);background-position:-483px 0;}
+.error--503 .error__title:before{background-image:url(../images/error.png);background-position:-483px -177px;}
+.error__text{margin-top:60px;font-size:16px;text-align:center;line-height:1.8}
+.error__link-wrap{margin-top:40px;text-align:center}
+.error__link{display:inline-block;padding:0 70px 2px;line-height:48px;white-space:nowrap;text-align:center;background-color: #69473f;color:#fff;font-size:18px;border-radius:30px;text-decoration: none}
+.error__link:active,.error__link:hover,.error__link:visited{color:#fff;text-decoration:none}
+.error__link:hover{background-color:#62443d}
+.error--500 .error__link, .error--503 .error__link{background-color:#2a91d5;}
+.error--500 .error__link:hover, .error--503 .error__link:hover{background-color:#117fc7;}
+@media only screen and (max-width:576px){
+    .error__contents{padding: 0 12px;box-sizing: border-box}
+    .error__title{width: 286px;height: 110px;}
+    .error__title:before{transform: scale(.6);transform-origin: left top;}
+    .error--500 .error__title, .error--503 .error__title{width:208px;height:100px}
+    .error__text{margin-top: 40px;font-size: 14px}
+    .error__link{padding: 0 50px;line-height:40px;font-size:16px;}
+}

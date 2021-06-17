@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hanshin">
+	<typeAlias alias="HANSHIN"
+		type="stackjava.com.springmvchello.controller.HanshinVO" />
+	<typeAlias alias="searchVO"
+		type="stackjava.com.springmvchello.controller.SampleDefaultVO" />
+
+	<resultMap id="hanshinResultMap" class="HANSHIN">
+		<result property="id" column="id" />
+		<result property="status" column="status" />
+		<result property="category" column="category" />
+		<result property="title" column="title" />
+		<result property="attachment" column="attachment" />
+		<result property="applicant" column="applicant" />
+		<result property="app_date" column="app_date" />
+	</resultMap>
+
+	<select id="getAll" resultClass="HANSHIN">
+		SELECT * FROM HANSHIN
+	</select>
+
+	<select id="findLike" resultClass="HANSHIN"
+		parameterClass="java.lang.String">
+		SELECT * FROM HANSHIN WHERE STATUS = #status#
+	</select>
+
+	<select id="selectHanshinList" parameterClass="searchVO" resultClass="HANSHIN">
+		SELECT * FROM HANSHIN 
+		WHERE 1=1
+		<isEqual prepend="AND" property="searchCondition" compareValue="1">
+			STATUS LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+		<isEqual prepend="AND" property="searchCondition" compareValue="2">
+			TITLE LIKE '%' || #searchKeyword# || '%'
+		</isEqual>
+	</select>
+
+</sqlMap>
