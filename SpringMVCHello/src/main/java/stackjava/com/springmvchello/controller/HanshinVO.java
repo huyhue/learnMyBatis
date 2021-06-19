@@ -7,13 +7,10 @@ public class HanshinVO {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
-
+	private String newItem;
 	private String status;
-
 	private String category;
-
 	private String title;
-
 	private String attachment;
 
 	private String applicant;

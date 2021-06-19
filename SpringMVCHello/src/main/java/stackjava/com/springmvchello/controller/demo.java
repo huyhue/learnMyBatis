@@ -13,7 +13,7 @@ public static String sayHello(student st) {
 }
 public static void check(Integer id) {
 	if (id != null) {
-		System.out.println("ok");
+		System.out.println("ok git");
 	} else {
 		System.out.println("no ok");
 	}
